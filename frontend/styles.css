@@ -1,4 +1,4 @@
-/* Login con fondo blanco */
+
 #login {
     min-height: 100vh;
     display: flex;
@@ -7,7 +7,7 @@
     background: #ffffff;
 }
 
-/* Estilos para navbar */
+
 .nav-link {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
@@ -28,26 +28,6 @@
     font-weight: 600;
 }
 
-/* Animaciones suaves */
-.fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(10px); 
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
-}
-
-/* Scrollbar personalizada */
-::-webkit-scrollbar {
-    width: 6px;
-}
 
 ::-webkit-scrollbar-track {
     background: #f9fafb;
