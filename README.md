@@ -1,4 +1,4 @@
-# Ecommerce (Prueba Técnica)
+# Shoe-store 
 Aplicación de e-commerce (zapatería) con FastAPI, MySQL y frontend HTML/JavaScript puro. Incluye gestión de productos, carrito de compras y pedidos.
 
 ## Requisitos Entorno
