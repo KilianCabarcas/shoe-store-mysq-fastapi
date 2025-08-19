@@ -1,35 +1,69 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-nav {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
-}
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/* Login con fondo blanco */
+#login {
+    min-height: 100vh;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
 }
-nav ul li {
-    margin: 0 20px;
-}
-nav ul li a {
-    color: #fff;
+
+/* Estilos para navbar */
+.nav-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: #374151;
+    font-weight: 500;
     text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
+    transition: all 0.2s ease;
 }
-nav ul li a.active, nav ul li a:hover {
-    text-decoration: underline;
+
+.nav-link:hover {
+    background-color: #eff6ff;
+    color: #2563eb;
 }
-#login, #main { display: none; }
-section { display: none; padding: 20px; }
-section.active { display: block; }
-table { border-collapse: collapse; width: 100%; }
-th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
-th { background: #eee; }
-.icon-btn { background: none; border: none; cursor: pointer; font-size: 1.2em; }
+
+.nav-link.active {
+    background-color: #dbeafe;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* Animaciones suaves */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f9fafb;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Ocultar secciones por defecto */
+section[style*="display: none"] {
+    display: none !important;
+}

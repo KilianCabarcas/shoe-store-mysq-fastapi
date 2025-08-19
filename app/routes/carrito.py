@@ -24,7 +24,7 @@ def agregar_al_carrito(item: Carrito):
 
 @router.get("/carrito")
 def ver_carrito():
-    usuario_id = 1  # Usuario único
+    usuario_id = 1 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute(

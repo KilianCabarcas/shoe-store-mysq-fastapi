@@ -1,13 +1,11 @@
 from pydantic import BaseModel
-
+from typing import Optional
 
 class Producto(BaseModel):
-    id: int | None = None
     nombre: str
-    descripcion: str | None = None
-    foto: str | None = None
-    talla: str | None = None
-    peso: float | None = None
+    descripcion: Optional[str] = None
     precio_unitario: float
-    iva: float
     categoria: str
+    foto: Optional[str] = None
+    talla: Optional[str] = None
+    aplica_iva: bool = True 

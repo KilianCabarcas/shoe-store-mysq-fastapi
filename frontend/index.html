@@ -3,496 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <title>Ecommerce Zapatos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div id="login">
-        <h2>Iniciar sesión</h2>
-        <form id="form-login">
-            <label>Usuario: <input type="text" id="usuario" required></label><br>
-            <label>Contraseña: <input type="password" id="contrasena" required></label><br>
-            <button type="submit">Entrar</button>
-        </form>
-        <div id="login-error" style="color:red;"></div>
+<body class="bg-gray-50 font-sans">
+    <!-- Login -->
+    <div id="login" class="min-h-screen flex items-center justify-center bg-white">
+        <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200 w-full max-w-md">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">Zapatería Online</h1>
+                <p class="text-gray-600 text-sm">Iniciar Sesión</p>
+            </div>
+            <form id="form-login" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Usuario</label>
+                    <input type="text" id="usuario" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+                    <input type="password" id="contrasena" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                </div>
+                <button type="submit" 
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200">
+                    Entrar
+                </button>
+            </form>
+            <div id="login-error" class="text-red-600 text-center mt-4 text-sm font-medium"></div>
+        </div>
     </div>
 
-    <div id="main">
-        <nav>
-            <ul>
-                <li><a href="#" id="nav-productos" class="active" onclick="mostrarSeccion('productos')">Productos</a></li>
-                <li><a href="#" id="nav-carrito" onclick="mostrarSeccion('carrito')">Carrito</a></li>
-                <li><a href="#" id="nav-pedidos" onclick="mostrarSeccion('pedidos')">Pedidos</a></li>
-                <li><a href="#" id="nav-categorias" onclick="mostrarSeccion('categorias')">Categorías</a></li>
-            </ul>
+    <!-- Main App -->
+    <div id="main" style="display: none;">
+        <!-- Navbar -->
+        <nav class="bg-white shadow-sm border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">Z</span>
+                        </div>
+                        <h1 class="text-xl font-bold text-gray-900">Zapatería Online</h1>
+                    </div>
+                    <ul class="flex space-x-1">
+                        <li><a href="#" id="nav-productos" class="nav-link active" onclick="mostrarSeccion('productos')">Productos</a></li>
+                        <li><a href="#" id="nav-carrito" class="nav-link" onclick="mostrarSeccion('carrito')">Carrito</a></li>
+                        <li><a href="#" id="nav-pedidos" class="nav-link" onclick="mostrarSeccion('pedidos')">Pedidos</a></li>
+                        <li><a href="#" id="nav-categorias" class="nav-link" onclick="mostrarSeccion('categorias')">Categorías</a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
 
-        <section id="seccion-productos" class="active">
-            <h2 id="form-title">Agregar producto</h2>
-            <form id="form-producto">
-                <input type="hidden" id="prod_id">
-                <label>Nombre: <input type="text" id="prod_nombre" required></label>
-                <label>Descripción: <input type="text" id="prod_desc"></label>
-                <label>Foto (URL): <input type="text" id="prod_foto"></label>
-                <label>Talla: <input type="text" id="prod_talla"></label>
-                <label>Peso: <input type="number" id="prod_peso" step="0.01"></label>
-                <label>Precio unitario: <input type="number" id="prod_precio" required></label>
-                <label>IVA: <input type="number" id="prod_iva" required></label>
-                <label>Categoría: <input type="text" id="prod_categoria" required placeholder="Ej: deportivas"></label>
-                <button type="submit">Guardar producto</button>
-                <button type="button" id="cancelar-edicion" style="display:none;">Cancelar</button>
-            </form>
-            <h1>Productos</h1>
-            <div id="productos"></div>
+        <!-- Productos -->
+        <section id="seccion-productos" class="container mx-auto px-4 py-8 active">
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-8 border border-gray-200">
+                <h2 id="form-title" class="text-xl font-semibold mb-6 text-gray-900">Agregar Producto</h2>
+                <form id="form-producto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <input type="hidden" id="prod_id">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
+                        <input type="text" id="prod_nombre" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Categoría *</label>
+                        <input type="text" id="prod_categoria" required placeholder="Ej: deportivas" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Precio *</label>
+                        <input type="number" id="prod_precio" required step="0.01"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="md:col-span-2 lg:col-span-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
+                        <textarea id="prod_desc" rows="3" 
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Foto (URL)</label>
+                        <input type="text" id="prod_foto" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Talla</label>
+                        <input type="text" id="prod_talla" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">¿Aplica IVA? *</label>
+                        <select id="prod_iva" required 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Seleccionar...</option>
+                            <option value="true">Sí</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2 lg:col-span-3 flex space-x-4 pt-4">
+                        <button type="submit" 
+                                class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-md transition-colors">
+                            Guardar Producto
+                        </button>
+                        <button type="button" id="cancelar-edicion" style="display:none;"
+                                class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-6 rounded-md transition-colors">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                <h1 class="text-2xl font-bold mb-6 text-gray-900">Lista de Productos</h1>
+                <div id="productos" class="overflow-x-auto"></div>
+            </div>
         </section>
 
-        <section id="seccion-carrito">
-            <h2>Agregar al carrito</h2>
-            <form id="form-carrito">
-                <label>ID Producto: <input type="number" id="producto_id" required></label>
-                <label>Cantidad: <input type="number" id="cantidad" value="1" min="1" required></label>
-                <button type="submit">Agregar</button>
-            </form>
-            <h2>Carrito</h2>
-            <div id="carrito"></div>
-            <button onclick="realizarPedido()">Realizar pedido</button>
+        <!-- Carrito -->
+        <section id="seccion-carrito" class="container mx-auto px-4 py-8" style="display: none;">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                    <h2 class="text-xl font-semibold mb-6 text-gray-900">Agregar al Carrito</h2>
+                    <form id="form-carrito" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ID Producto</label>
+                            <input type="number" id="producto_id" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Cantidad</label>
+                            <input type="number" id="cantidad" value="1" min="1" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <button type="submit" 
+                                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                            Agregar al Carrito
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                    <h2 class="text-xl font-semibold mb-6 text-gray-900">Mi Carrito</h2>
+                    <div id="carrito" class="mb-6"></div>
+                    <button onclick="realizarPedido()" 
+                            class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                        Realizar Pedido
+                    </button>
+                </div>
+            </div>
         </section>
 
-        <section id="seccion-pedidos">
-            <h2>Pedidos</h2>
-            <div id="pedidos"></div>
+        <!-- Pedidos -->
+        <section id="seccion-pedidos" class="container mx-auto px-4 py-8" style="display: none;">
+            <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                <h2 class="text-xl font-semibold mb-6 text-gray-900">Mis Pedidos</h2>
+                <div id="pedidos"></div>
+            </div>
         </section>
 
-        <section id="seccion-categorias">
-            <h2 id="cat-form-title">Agregar categoría</h2>
-            <form id="form-categoria">
-                <input type="hidden" id="cat_id">
-                <label>Nombre: <input type="text" id="cat_nombre" required></label>
-                <label>Descripción: <input type="text" id="cat_desc"></label>
-                <button type="submit">Guardar categoría</button>
-                <button type="button" id="cancelar-cat-edicion" style="display:none;">Cancelar</button>
-            </form>
-            <h3>Categorías</h3>
-            <div id="categorias"></div>
-            <div id="productos-categoria"></div>
+        <!-- Categorías -->
+        <section id="seccion-categorias" class="container mx-auto px-4 py-8" style="display: none;">
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-8 border border-gray-200">
+                <h2 id="cat-form-title" class="text-xl font-semibold mb-6 text-gray-900">Agregar Categoría</h2>
+                <form id="form-categoria" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="hidden" id="cat_id">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
+                        <input type="text" id="cat_nombre" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
+                        <textarea id="cat_desc" rows="3" 
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    <div class="md:col-span-2 flex space-x-4 pt-4">
+                        <button type="submit" 
+                                class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-md transition-colors">
+                            Guardar Categoría
+                        </button>
+                        <button type="button" id="cancelar-cat-edicion" style="display:none;"
+                                class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-6 rounded-md transition-colors">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                <h3 class="text-xl font-semibold mb-6 text-gray-900">Lista de Categorías</h3>
+                <div id="categorias" class="overflow-x-auto mb-6"></div>
+                <div id="productos-categoria" class="bg-gray-50 p-4 rounded-lg"></div>
+            </div>
         </section>
     </div>
 
-<script>
-const API = "http://127.0.0.1:8000";
-let editando = false;
-let editandoCat = false;
-
-// Mostrar login al inicio
-document.getElementById("login").style.display = "block";
-
-// Navbar: mostrar secciones
-function mostrarSeccion(seccion) {
-    document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
-    document.getElementById('nav-' + seccion).classList.add('active');
-    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-    document.getElementById('seccion-' + seccion).classList.add('active');
-    if (seccion === 'productos') cargarProductos();
-    if (seccion === 'carrito') cargarCarrito();
-    if (seccion === 'pedidos') cargarPedidos();
-    if (seccion === 'categorias') cargarCategorias();
-}
-
-// Login
-document.getElementById("form-login").onsubmit = function(e) {
-    e.preventDefault();
-    fetch(API + "/login", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            nombre_usuario: document.getElementById("usuario").value,
-            contraseña: document.getElementById("contrasena").value
-        })
-    })
-    .then(r => {
-        if (r.ok) return r.json();
-        throw new Error("Usuario o contraseña incorrectos");
-    })
-    .then(() => {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("main").style.display = "block";
-        mostrarSeccion('productos');
-        cargarProductos();
-        cargarCarrito();
-        cargarPedidos();
-        cargarCategorias();
-    })
-    .catch(err => {
-        document.getElementById("login-error").innerText = err.message;
-    });
-};
-
-// Mostrar productos en tabla con iconos
-function cargarProductos() {
-    fetch(API + "/productos")
-        .then(r => r.json())
-        .then(data => {
-            let html = `<table>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Foto</th>
-                    <th>Talla</th>
-                    <th>Peso</th>
-                    <th>Precio</th>
-                    <th>IVA</th>
-                    <th>Categoría</th>
-                    <th>Acciones</th>
-                </tr>`;
-            data.forEach(p => {
-                html += `<tr>
-                    <td>${p.id}</td>
-                    <td>${p.nombre}</td>
-                    <td>${p.descripcion || ""}</td>
-                    <td>${p.foto ? `<img src="${p.foto}" alt="foto" width="40">` : ""}</td>
-                    <td>${p.talla || ""}</td>
-                    <td>${p.peso || ""}</td>
-                    <td>${p.precio_unitario}</td>
-                    <td>${p.iva}</td>
-                    <td>${p.categoria}</td>
-                    <td>
-                        <button class="icon-btn" onclick="editarProducto(${p.id})" title="Editar">✏️</button>
-                        <button class="icon-btn" onclick="borrarProducto(${p.id})" title="Borrar">🗑️</button>
-                        <button class="icon-btn" onclick="agregarAlCarritoDesdeProducto(${p.id})" title="Agregar al carrito">🛒</button>
-                    </td>
-                </tr>`;
-            });
-            html += "</table>";
-            document.getElementById("productos").innerHTML = html;
-        });
-}
-
-// Botón 🛒 en productos
-window.agregarAlCarritoDesdeProducto = function(idProducto) {
-    const cantidad = prompt("¿Cuántos productos quieres agregar al carrito?", "1");
-    if (!cantidad || isNaN(cantidad) || cantidad <= 0) return;
-    fetch(API + "/carrito", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            producto_id: idProducto,
-            cantidad: parseInt(cantidad)
-        })
-    })
-    .then(r => r.json())
-    .then(() => {
-        cargarCarrito();
-        alert("Producto agregado al carrito");
-    });
-}
-
-// Borrar producto
-function borrarProducto(id) {
-    if (!confirm("¿Seguro que quieres borrar este producto?")) return;
-    fetch(API + "/productos/" + id, {method: "DELETE"})
-        .then(r => r.json())
-        .then(() => {
-            cargarProductos();
-            alert("Producto borrado");
-        });
-}
-
-// Editar producto (carga datos en el formulario)
-window.editarProducto = function(id) {
-    fetch(API + "/productos")
-        .then(r => r.json())
-        .then(data => {
-            const prod = data.find(p => p.id === id);
-            if (!prod) return;
-            document.getElementById("prod_id").value = prod.id;
-            document.getElementById("prod_nombre").value = prod.nombre;
-            document.getElementById("prod_desc").value = prod.descripcion || "";
-            document.getElementById("prod_foto").value = prod.foto || "";
-            document.getElementById("prod_talla").value = prod.talla || "";
-            document.getElementById("prod_peso").value = prod.peso || "";
-            document.getElementById("prod_precio").value = prod.precio_unitario;
-            document.getElementById("prod_iva").value = prod.iva;
-            document.getElementById("prod_categoria").value = prod.categoria;
-            document.getElementById("form-title").innerText = "Editar producto";
-            document.getElementById("cancelar-edicion").style.display = "inline";
-            editando = true;
-        });
-}
-
-// Cancelar edición
-document.getElementById("cancelar-edicion").onclick = function() {
-    limpiarFormularioProducto();
-};
-
-// Guardar producto (crear o editar)
-document.getElementById("form-producto").onsubmit = function(e) {
-    e.preventDefault();
-    const id = document.getElementById("prod_id").value;
-    const producto = {
-        nombre: document.getElementById("prod_nombre").value,
-        descripcion: document.getElementById("prod_desc").value,
-        foto: document.getElementById("prod_foto").value,
-        talla: document.getElementById("prod_talla").value,
-        peso: parseFloat(document.getElementById("prod_peso").value) || 0,
-        precio_unitario: parseFloat(document.getElementById("prod_precio").value),
-        iva: parseFloat(document.getElementById("prod_iva").value),
-        categoria: document.getElementById("prod_categoria").value
-    };
-    if (editando && id) {
-        fetch(API + "/productos/" + id, {
-            method: "PUT",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(producto)
-        })
-        .then(r => r.json())
-        .then(() => {
-            alert("Producto editado");
-            cargarProductos();
-            limpiarFormularioProducto();
-        });
-    } else {
-        fetch(API + "/productos", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(producto)
-        })
-        .then(r => r.json())
-        .then(() => {
-            alert("Producto agregado");
-            cargarProductos();
-            limpiarFormularioProducto();
-        });
-    }
-};
-
-// Limpiar formulario producto
-function limpiarFormularioProducto() {
-    document.getElementById("form-title").innerText = "Agregar producto";
-    document.getElementById("form-producto").reset();
-    document.getElementById("prod_id").value = "";
-    document.getElementById("cancelar-edicion").style.display = "none";
-    editando = false;
-}
-
-// Mostrar carrito con acciones
-function cargarCarrito() {
-    fetch(API + "/carrito")
-        .then(r => r.json())
-        .then(data => {
-            let html = `<table>
-                <tr>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Acciones</th>
-                </tr>`;
-            data.forEach(item => {
-                html += `<tr>
-                    <td>${item.nombre}</td>
-                    <td>${item.cantidad}</td>
-                    <td>
-                        <button class="icon-btn" onclick="editarCantidadCarrito(${item.id}, ${item.cantidad})" title="Editar cantidad">✏️</button>
-                        <button class="icon-btn" onclick="borrarItemCarrito(${item.id})" title="Borrar">🗑️</button>
-                    </td>
-                </tr>`;
-            });
-            html += "</table>";
-            document.getElementById("carrito").innerHTML = html;
-        });
-}
-
-// Editar cantidad en carrito
-window.editarCantidadCarrito = function(id, cantidadActual) {
-    const nuevaCantidad = prompt("Nueva cantidad:", cantidadActual);
-    if (!nuevaCantidad || isNaN(nuevaCantidad) || nuevaCantidad <= 0) return;
-    fetch(API + "/carrito/" + id, {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ cantidad: parseInt(nuevaCantidad) })
-    })
-    .then(r => r.json())
-    .then(() => {
-        cargarCarrito();
-        alert("Cantidad actualizada");
-    });
-}
-
-// Borrar item del carrito
-window.borrarItemCarrito = function(id) {
-    if (!confirm("¿Seguro que quieres borrar este producto del carrito?")) return;
-    fetch(API + "/carrito/" + id, {method: "DELETE"})
-        .then(r => r.json())
-        .then(() => {
-            cargarCarrito();
-            alert("Producto eliminado del carrito");
-        });
-}
-
-// Mostrar pedidos
-function cargarPedidos() {
-    fetch(API + "/pedidos")
-        .then(r => r.json())
-        .then(data => {
-            let html = "<ul>";
-            data.forEach(p => {
-                html += `<li>Pedido #${p.id} - Total: $${p.total}</li>`;
-            });
-            html += "</ul>";
-            document.getElementById("pedidos").innerHTML = html;
-        });
-}
-
-// Agregar al carrito desde formulario
-document.getElementById("form-carrito").onsubmit = function(e) {
-    e.preventDefault();
-    fetch(API + "/carrito", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            producto_id: parseInt(document.getElementById("producto_id").value),
-            cantidad: parseInt(document.getElementById("cantidad").value)
-        })
-    })
-    .then(r => r.json())
-    .then(() => {
-        cargarCarrito();
-        alert("Producto agregado al carrito");
-    });
-};
-
-// Realizar pedido
-function realizarPedido() {
-    fetch(API + "/realizar-pedido", {method: "POST"})
-        .then(r => r.json())
-        .then(data => {
-            alert(data.mensaje);
-            cargarCarrito();
-            cargarPedidos();
-        });
-}
-
-// Categorías CRUD y ver productos por categoría
-function cargarCategorias() {
-    fetch(API + "/categorias")
-        .then(r => r.json())
-        .then(data => {
-            let html = `<table>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Acciones</th>
-                </tr>`;
-            data.forEach(c => {
-                html += `<tr>
-                    <td>${c.id}</td>
-                    <td>${c.nombre}</td>
-                    <td>${c.descripcion || ""}</td>
-                    <td>
-                        <button class="icon-btn" onclick="editarCategoria(${c.id})" title="Editar">✏️</button>
-                        <button class="icon-btn" onclick="borrarCategoria(${c.id})" title="Borrar">🗑️</button>
-                        <button class="icon-btn" onclick="verProductosCategoria('${c.nombre}')" title="Ver productos">📦</button>
-                    </td>
-                </tr>`;
-            });
-            html += "</table>";
-            document.getElementById("categorias").innerHTML = html;
-            document.getElementById("productos-categoria").innerHTML = "";
-        });
-}
-
-// Crear/editar categoría
-document.getElementById("form-categoria").onsubmit = function(e) {
-    e.preventDefault();
-    const id = document.getElementById("cat_id").value;
-    const categoria = {
-        nombre: document.getElementById("cat_nombre").value,
-        descripcion: document.getElementById("cat_desc").value
-    };
-    if (editandoCat && id) {
-        fetch(API + "/categorias/" + id, {
-            method: "PUT",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(categoria)
-        })
-        .then(r => r.json())
-        .then(() => {
-            alert("Categoría editada");
-            cargarCategorias();
-            limpiarFormularioCategoria();
-        });
-    } else {
-        fetch(API + "/categorias", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(categoria)
-        })
-        .then(r => r.json())
-        .then(() => {
-            alert("Categoría agregada");
-            cargarCategorias();
-            limpiarFormularioCategoria();
-        });
-    }
-};
-
-// Editar categoría
-window.editarCategoria = function(id) {
-    fetch(API + "/categorias")
-        .then(r => r.json())
-        .then(data => {
-            const cat = data.find(c => c.id === id);
-            if (!cat) return;
-            document.getElementById("cat_id").value = cat.id;
-            document.getElementById("cat_nombre").value = cat.nombre;
-            document.getElementById("cat_desc").value = cat.descripcion || "";
-            document.getElementById("cat-form-title").innerText = "Editar categoría";
-            document.getElementById("cancelar-cat-edicion").style.display = "inline";
-            editandoCat = true;
-        });
-};
-
-// Cancelar edición de categoría
-document.getElementById("cancelar-cat-edicion").onclick = function() {
-    limpiarFormularioCategoria();
-};
-
-function limpiarFormularioCategoria() {
-    document.getElementById("cat-form-title").innerText = "Agregar categoría";
-    document.getElementById("form-categoria").reset();
-    document.getElementById("cat_id").value = "";
-    document.getElementById("cancelar-cat-edicion").style.display = "none";
-    editandoCat = false;
-}
-
-// Borrar categoría
-window.borrarCategoria = function(id) {
-    if (!confirm("¿Seguro que quieres borrar esta categoría?")) return;
-    fetch(API + "/categorias/" + id, {method: "DELETE"})
-        .then(r => r.json())
-        .then(() => {
-            cargarCategorias();
-            alert("Categoría borrada");
-        });
-};
-
-// Ver productos de una categoría por nombre
-window.verProductosCategoria = function(nombre) {
-    fetch(API + "/productos/categoria/" + encodeURIComponent(nombre))
-        .then(r => r.json())
-        .then(productos => {
-            let html = "<h4>Productos de la categoría</h4>";
-            if (productos.length === 0) {
-                html += "<p>No hay productos en esta categoría.</p>";
-            } else {
-                html += "<ul>";
-                productos.forEach(p => {
-                    html += `<li>${p.nombre} (ID: ${p.id})</li>`;
-                });
-                html += "</ul>";
-            }
-            document.getElementById("productos-categoria").innerHTML = html;
-        });
-};
-</script>
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/productos.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/pedidos.js"></script>
+    <script src="js/categorias.js"></script>
 </body>
 </html>
